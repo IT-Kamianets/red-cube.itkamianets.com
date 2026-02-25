@@ -1,0 +1,14 @@
+# Залежності
+node_modules/
+
+# Збірка
+dist/
+
+# Локфайли пакетного менеджера
+package-lock.json
+
+# Системні файли Claude
+.claude/
+
+# Старий монолітний файл (замінений на src/)
+red-cube.itkamianets.com.jsx
