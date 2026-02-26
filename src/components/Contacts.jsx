@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import C from "../constants/colors.js";
 import useInView from "../hooks/useInView.js";
 import NeonBorder from "./ui/NeonBorder.jsx";
@@ -12,8 +13,17 @@ const PHONE_DISPLAY = "+38 098 537 87 17";
 
 export default function Contacts() {
   const [ref, inView] = useInView(0.15);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const fn = () => setIsMobile(window.innerWidth < 640);
+    fn();
+    window.addEventListener("resize", fn);
+    return () => window.removeEventListener("resize", fn);
+  }, []);
+
   return (
-    <section id="contacts" ref={ref} style={{ background: C.bg, padding: "clamp(56px,9vw,112px) clamp(20px,5vw,64px)", borderTop: `1px solid ${C.redBorder}` }}>
+    <section id="contacts" ref={ref} style={{ background: C.bg, padding: "clamp(56px,9vw,112px) clamp(20px,5vw,64px)", borderTop: "1px solid " + C.redBorder }}>
       <div style={{ maxWidth: "920px", margin: "0 auto" }}>
         <Slide inView={inView} style={{ marginBottom: "clamp(36px,5vw,56px)" }}>
           <Label n="07" text="Контакти" />
@@ -21,14 +31,13 @@ export default function Contacts() {
         </Slide>
 
         <NeonBorder active={inView} delay="0.2s">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0" }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: "0" }}>
 
-            {/* Ліва колонка: інфо + кнопки */}
-            <Slide inView={inView} delay={0.15} style={{ padding: "clamp(28px,4vw,48px)", display: "flex", flexDirection: "column", gap: "28px", borderRight: `1px solid ${C.redBorder}` }}>
+            <Slide inView={inView} delay={0.15} style={{ padding: "clamp(28px,4vw,48px)", display: "flex", flexDirection: "column", gap: "28px", borderRight: isMobile ? "none" : "1px solid " + C.redBorder, borderBottom: isMobile ? "1px solid " + C.redBorder : "none" }}>
               <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
                 {[
                   { k: "Адреса", v: "вул. Першотравнева 9Б\nКам'янець-Подільський", href: MAPS_URL },
-                  { k: "Телефон / WhatsApp / Viber", v: PHONE_DISPLAY, href: `tel:${PHONE}` },
+                  { k: "Телефон / WhatsApp / Viber", v: PHONE_DISPLAY, href: "tel:" + PHONE },
                   { k: "Заїзд / Виїзд", v: "з 14:00 / до 11:00" },
                   { k: "Стійка", v: "цілодобово" },
                   { k: "Оплата", v: "готівка" },
@@ -48,8 +57,8 @@ export default function Contacts() {
               </div>
 
               <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginTop: "auto" }}>
-                <a href={`https://wa.me/${PHONE.replace("+", "")}`} target="_blank" rel="noreferrer"
-                  style={{ display: "block", textAlign: "center", border: `1px solid ${C.red}`, color: C.red, padding: "12px 20px", fontSize: "10px", letterSpacing: "0.24em", textTransform: "uppercase", fontFamily: "'DM Mono',monospace", textDecoration: "none", transition: "all 0.3s" }}
+                <a href={"https://wa.me/" + PHONE.replace("+", "")} target="_blank" rel="noreferrer"
+                  style={{ display: "block", textAlign: "center", border: "1px solid " + C.red, color: C.red, padding: "12px 20px", fontSize: "10px", letterSpacing: "0.24em", textTransform: "uppercase", fontFamily: "'DM Mono',monospace", textDecoration: "none", transition: "all 0.3s" }}
                   onMouseEnter={e => { e.currentTarget.style.background = C.red; e.currentTarget.style.color = "#fff"; }}
                   onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = C.red; }}>Написати в WhatsApp</a>
                 <a href={BOOKING_URL} target="_blank" rel="noreferrer"
@@ -63,7 +72,7 @@ export default function Contacts() {
                     { label: "Booking.com", href: BOOKING_URL },
                   ].map((s, i) => (
                     <a key={i} href={s.href} target={s.href !== "#" ? "_blank" : undefined} rel="noreferrer"
-                      style={{ fontSize: "9px", letterSpacing: "0.15em", color: C.muted, fontFamily: "'DM Mono',monospace", textDecoration: "none", borderBottom: `1px solid ${C.redBorder}`, paddingBottom: "2px", transition: "all 0.2s" }}
+                      style={{ fontSize: "9px", letterSpacing: "0.15em", color: C.muted, fontFamily: "'DM Mono',monospace", textDecoration: "none", borderBottom: "1px solid " + C.redBorder, paddingBottom: "2px", transition: "all 0.2s" }}
                       onMouseEnter={e => { e.target.style.color = C.red; e.target.style.borderColor = C.red; }}
                       onMouseLeave={e => { e.target.style.color = C.muted; e.target.style.borderColor = C.redBorder; }}>{s.label}</a>
                   ))}
@@ -71,8 +80,7 @@ export default function Contacts() {
               </div>
             </Slide>
 
-            {/* Права колонка: карта */}
-            <Slide inView={inView} delay={0.1} style={{ position: "relative", minHeight: "360px" }}>
+            <Slide inView={inView} delay={0.1} style={{ position: "relative", minHeight: isMobile ? "260px" : "360px" }}>
               <HotelMap />
             </Slide>
 

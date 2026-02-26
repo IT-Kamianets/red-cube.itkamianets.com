@@ -18,7 +18,7 @@ export default function About() {
         <Slide inView={inView} style={{ marginBottom: "clamp(36px,5vw,56px)" }}>
           <Label n="01" text="Про нас" />
           <h2 style={{ fontSize: "clamp(28px,4.5vw,46px)", fontFamily: "'Playfair Display',serif", color: C.text, marginTop: "12px", fontWeight: "400" }}>About</h2>
-          <p style={{ marginTop: "18px", fontSize: "clamp(14px,2vw,16px)", color: C.muted, fontFamily: "'Playfair Display',serif", fontStyle: "italic", lineHeight: 1.75, maxWidth: "560px" }}>
+          <p style={{ marginTop: "18px", fontSize: "clamp(14px,2vw,16px)", color: C.muted, fontFamily: "'Playfair Display',serif", lineHeight: 1.75, maxWidth: "560px" }}>
             Готель нового формату у самому серці Кам'янець-Подільського — сучасний ремонт, власна ванна в кожному номері, уважний персонал і атмосфера, де хочеться повертатися.
           </p>
         </Slide>

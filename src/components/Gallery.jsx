@@ -40,7 +40,7 @@ export default function Gallery() {
           <h2 style={{ fontSize: "clamp(28px,4.5vw,46px)", fontFamily: "'Playfair Display',serif", color: C.text, marginTop: "12px", fontWeight: "400" }}>Gallery</h2>
         </Slide>
         <NeonBorder active={inView} delay="0.15s">
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gridAutoRows: "160px", gap: "4px" }}>
+          <div className="gallery-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gridAutoRows: "160px", gap: "4px" }}>
             {cells.map((cell, i) => (
               <Slide key={i} inView={inView} delay={i * 0.06} style={{ gridColumn: cell.col, gridRow: cell.row }}>
                 <div style={{ width: "100%", height: "100%", position: "relative", overflow: "hidden", cursor: "pointer", transition: "transform 0.3s ease" }}

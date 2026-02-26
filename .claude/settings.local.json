@@ -5,7 +5,10 @@
       "Bash(cd \"D:/work/red-cube.itkamianets.com\" && echo \"\" | npm create vite@latest . -- --template react 2>&1)",
       "Bash(echo Exit code: $?:*)",
       "Bash(npm install leaflet react-leaflet)",
-      "Bash(xargs sed -i \"s/fontFamily: \"\"Playfair Display\"\",serif/fontFamily: \"\"''Playfair Display'',serif\"\"/g; s/fontFamily: \"\"DM Mono\"\",monospace/fontFamily: \"\"''DM Mono'',monospace\"\"/g\")"
+      "Bash(xargs sed -i \"s/fontFamily: \"\"Playfair Display\"\",serif/fontFamily: \"\"''Playfair Display'',serif\"\"/g; s/fontFamily: \"\"DM Mono\"\",monospace/fontFamily: \"\"''DM Mono'',monospace\"\"/g\")",
+      "Bash(\"d:/work/red-cube.itkamianets.com/public/robots.txt\":*)",
+      "Bash(npm run build)",
+      "Bash(node -e \":*)"
     ]
   }
 }

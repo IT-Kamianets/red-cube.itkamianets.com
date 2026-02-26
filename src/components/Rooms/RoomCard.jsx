@@ -33,7 +33,7 @@ export default function RoomCard({ room, theme }) {
     <div ref={ref}>
       <NeonBorder active={inView} delay="0s" style={{ background: theme.surface, overflow: "hidden" }}>
         <Slide inView={inView} delay={0.1}>
-          <div style={{ display: "flex", flexDirection: theme.reverse ? "row-reverse" : "row", flexWrap: "wrap" }}>
+          <div className="room-row" style={{ display: "flex", flexDirection: theme.reverse ? "row-reverse" : "row", flexWrap: "wrap" }}>
             {photoBlock}{infoBlock}
           </div>
         </Slide>

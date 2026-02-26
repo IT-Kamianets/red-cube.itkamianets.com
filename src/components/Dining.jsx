@@ -20,9 +20,9 @@ export default function Dining() {
           <Slide inView={inView} delay={0.1}>
             <div style={{ padding: "clamp(28px,4.5vw,48px)", display: "flex", alignItems: "center", gap: "clamp(20px,3.5vw,40px)", flexWrap: "wrap", position: "relative", borderBottom: `1px solid rgba(200,140,100,0.15)` }}>
               <div style={{ display: "flex", gap: "12px", flexShrink: 0 }}>
-                {[imgYizha, imgKukhnia, imgBluda].map((img, i) => (
+                {[[imgYizha, "Їжа в Red Cube Hotel"], [imgKukhnia, "Спільна кухня Red Cube Hotel"], [imgBluda, "Страви Red Cube Hotel"]].map(([img, alt], i) => (
                   <div key={i} style={{ width: "clamp(90px,14vw,140px)", height: "clamp(90px,14vw,140px)", borderRadius: "50%", border: `2px solid rgba(100,180,220,${0.25 + i * 0.18})`, boxShadow: `0 0 ${16 + i * 8}px rgba(100,180,220,${0.15 + i * 0.1})`, opacity: inView ? 1 : 0, transform: inView ? "scale(1)" : "scale(0.6)", transition: `all 0.6s ease ${i * 0.12}s`, overflow: "hidden", flexShrink: 0 }}>
-                    <img src={img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                    <img src={img} alt={alt} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                   </div>
                 ))}
               </div>
