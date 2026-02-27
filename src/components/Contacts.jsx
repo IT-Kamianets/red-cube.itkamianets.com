@@ -11,8 +11,8 @@ const BOOKING_URL = "https://www.booking.com/hotel/ua/red-cube.uk.html";
 const PHONE = "+380985378717";
 const PHONE_DISPLAY = "+38 098 537 87 17";
 
-export default function Contacts() {
-  const [ref, inView] = useInView(0.15);
+export default function Contacts({ headingRef }) {
+  const [ref, inView] = useInView(0.3);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -25,10 +25,12 @@ export default function Contacts() {
   return (
     <section id="contacts" ref={ref} style={{ background: C.bg, padding: "clamp(56px,9vw,112px) clamp(20px,5vw,64px)", borderTop: "1px solid " + C.redBorder }}>
       <div style={{ maxWidth: "920px", margin: "0 auto" }}>
-        <Slide inView={inView} style={{ marginBottom: "clamp(36px,5vw,56px)" }}>
-          <Label n="07" text="Контакти" />
-          <h2 style={{ fontSize: "clamp(28px,4.5vw,46px)", fontFamily: "'Playfair Display',serif", color: C.text, marginTop: "12px", fontWeight: "400" }}>Contacts</h2>
-        </Slide>
+        <div ref={headingRef}>
+          <Slide inView={inView} style={{ marginBottom: "clamp(36px,5vw,56px)" }}>
+            <Label n="07" text="Контакти" />
+            <h2 style={{ fontSize: "clamp(28px,4.5vw,46px)", fontFamily: "'Playfair Display',serif", color: C.text, marginTop: "12px", fontWeight: "400" }}>Contacts</h2>
+          </Slide>
+        </div>
 
         <NeonBorder active={inView} delay="0.2s">
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: "0" }}>

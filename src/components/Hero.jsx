@@ -17,7 +17,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section style={{ minHeight: "100vh", background: C.bg, display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden", padding: "40px" }}>
+    <section style={{ minHeight: "calc(100vh - 60px)", background: C.bg, display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden", padding: "40px" }}>
       <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 70% 55% at 50% 42%,rgba(200,16,46,0.07) 0%,transparent 70%)", pointerEvents: "none" }} />
       <Particles active={phase >= 4} />
       <HeroBorder active={phase >= 1} done={phase >= 4} style={{ width: "min(620px,90vw)", padding: "clamp(44px,7vw,80px) clamp(28px,5vw,64px)", textAlign: "center", marginTop: "clamp(16px,3vh,48px)" }}>
@@ -26,8 +26,8 @@ export default function Hero() {
         <div style={{ fontSize: "clamp(72px,14vw,120px)", fontFamily: "'Playfair Display',serif", fontWeight: "900", color: C.text, lineHeight: 1, letterSpacing: "-0.04em", marginBottom: "6px", transition: "opacity 1s ease", opacity: phase >= 2 ? 1 : 0 }}>R</div>
         <div style={{ fontSize: "clamp(8px,1.4vw,11px)", letterSpacing: "0.4em", color: C.muted, textTransform: "uppercase", fontFamily: "'DM Mono',monospace", marginBottom: "clamp(32px,5vw,56px)", opacity: phase >= 2 ? 0.6 : 0, transition: "opacity 0.6s ease" }}>RED CUBE HOTEL</div>
         <div style={{ opacity: phase >= 2 ? 1 : 0, transform: phase >= 2 ? "translateY(0)" : "translateY(14px)", transition: "all 0.8s ease" }}>
-          <p style={{ fontSize: "clamp(13px,2.2vw,16px)", color: C.text, fontFamily: "'Playfair Display',serif", lineHeight: 1.65, marginBottom: "clamp(24px,4vw,40px)", opacity: 0.75 }}>
-            Сучасний готель<br />у серці Кам'янця-Подільського
+          <p style={{ fontSize: "clamp(11px,1.8vw,13px)", color: C.muted, fontFamily: "'DM Mono',monospace", letterSpacing: "0.08em", lineHeight: 1.6, marginBottom: "clamp(24px,4vw,40px)", opacity: 0.6 }}>
+            Готель нового формату
           </p>
           <button style={{ background: "transparent", border: `1px solid ${C.red}`, color: C.red, padding: "13px 36px", fontSize: "10px", letterSpacing: "0.28em", textTransform: "uppercase", fontFamily: "'DM Mono',monospace", cursor: "pointer", transition: "all 0.3s ease" }}
             onMouseEnter={e => { e.target.style.background = C.red; e.target.style.color = "#fff"; }}
