@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 
-const GLOW = `0 0 2px rgba(220, 30, 60, 1), 0 0 6px rgba(200, 16, 46, 0.9), 0 0 14px rgba(200, 16, 46, 0.55), 0 0 28px rgba(200, 16, 46, 0.25)`;
-const RED = "#C8102E";
+const GLOW = `0 0 4px rgba(140,0,33,0.8), 0 0 8px rgba(140,0,33,0.3)`;
+const RED = "#8C0021";
 
 // How many px above the label div the vertical line stops
 const LABEL_OFFSET = 10;
@@ -131,7 +131,7 @@ export default function ConnectorLines({ pairs, scrollContainerRef }) {
                             <span style={{
                                 position: "absolute",
                                 left: line.boxRight,
-                                top: line.boxBottom,
+                                top: line.boxBottom - 1,
                                 height: "1px",
                                 width: line.rightW,
                                 background: RED,

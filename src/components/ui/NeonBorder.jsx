@@ -3,12 +3,12 @@ export default function NeonBorder({
   children,
   style = {},
   delay = "0s",
-  color = "#C8102E",
+  color = "#8C0021",
 }) {
   const base = parseFloat(delay);
   const d = (n) => `${(base + n * 0.45).toFixed(2)}s`;
   const EASE = "cubic-bezier(.4,0,.2,1)";
-  const GLOW = `0 0 2px rgba(220,30,60,1), 0 0 6px rgba(200,16,46,0.9), 0 0 14px rgba(200,16,46,0.55), 0 0 28px rgba(200,16,46,0.25)`;
+  const GLOW = `0 0 4px rgba(140,0,33,0.8), 0 0 8px rgba(140,0,33,0.3)`;
 
   const line = (extra) => ({
     position: "absolute",
@@ -20,7 +20,14 @@ export default function NeonBorder({
   });
 
   return (
-    <div style={{ position: "relative", ...style }}>
+    <div style={{
+      position: "relative",
+      boxShadow: active
+        ? `0 0 15px rgba(140,0,33,0.15), 0 0 35px rgba(140,0,33,0.06)`
+        : "none",
+      transition: "box-shadow 0.8s ease",
+      ...style
+    }}>
       {/* Children first so border spans layer on top naturally */}
       {children}
 
