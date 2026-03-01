@@ -18,6 +18,7 @@ export default function Hero() {
 
   return (
     <section style={{ minHeight: "calc(100vh - 60px)", background: C.bg, display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden", padding: "40px" }}>
+      <h1 style={{ position: "absolute", width: "1px", height: "1px", padding: 0, margin: "-1px", overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", border: 0 }}>Red Cube Hotel — Готель у Кам'янці-Подільському</h1>
       <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 70% 55% at 50% 42%,rgba(200,16,46,0.07) 0%,transparent 70%)", pointerEvents: "none" }} />
       <Particles active={phase >= 4} />
       <HeroBorder active={phase >= 1} done={phase >= 4} style={{ width: "min(620px,90vw)", padding: "clamp(44px,7vw,80px) clamp(28px,5vw,64px)", textAlign: "center", marginTop: "clamp(16px,3vh,48px)" }}>
@@ -29,10 +30,10 @@ export default function Hero() {
           <p style={{ fontSize: "clamp(11px,1.8vw,13px)", color: C.muted, fontFamily: "'DM Mono',monospace", letterSpacing: "0.08em", lineHeight: 1.6, marginBottom: "clamp(24px,4vw,40px)", opacity: 0.6 }}>
             Готель нового формату
           </p>
-          <button style={{ background: "transparent", border: `1px solid ${C.red}`, color: C.red, padding: "13px 36px", fontSize: "10px", letterSpacing: "0.28em", textTransform: "uppercase", fontFamily: "'DM Mono',monospace", cursor: "pointer", transition: "all 0.3s ease" }}
-            onMouseEnter={e => { e.target.style.background = C.red; e.target.style.color = "#fff"; }}
-            onMouseLeave={e => { e.target.style.background = "transparent"; e.target.style.color = C.red; }}
-          >Забронювати</button>
+          <a href="tel:+380985378717" style={{ display: "inline-block", background: "transparent", border: `1px solid ${C.red}`, color: C.red, padding: "13px 36px", fontSize: "10px", letterSpacing: "0.28em", textTransform: "uppercase", fontFamily: "'DM Mono',monospace", cursor: "pointer", transition: "all 0.3s ease", textDecoration: "none" }}
+            onMouseEnter={e => { e.currentTarget.style.background = C.red; e.currentTarget.style.color = "#fff"; }}
+            onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = C.red; }}
+          >Зателефонувати</a>
         </div>
       </HeroBorder>
       <div style={{ position: "absolute", bottom: "24px", left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: "8px", opacity: phase >= 3 ? 0.45 : 0, transition: "opacity 1s ease" }}>

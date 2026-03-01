@@ -16,8 +16,8 @@ const C = {
 
   text:        "#E8E4DE",
   textWarm:    "#E4DDD6",
-  muted:       "#555050",
-  mutedWarm:   "#605a55",
+  muted:       "#6a6464",
+  mutedWarm:   "#6e6560",
 };
 
 export default C;

@@ -3,9 +3,16 @@ import useInView from "../../hooks/useInView.js";
 import Slide from "../ui/Slide.jsx";
 import Label from "../ui/Label.jsx";
 import RoomCard from "./RoomCard.jsx";
-import imgStandard from "../../images/rooms/стандртний із ліжком king-size.webp";
-import imgTripleCity from "../../images/rooms/Тримісний номер з видом на місто.webp";
-import imgTriple from "../../images/rooms/Тримісний номер.webp";
+import imgKing1 from "../../images/rooms/king-size/Головна спальня.webp";
+import imgKing2 from "../../images/rooms/king-size/Світла спальня з великим ліжком.webp";
+import imgKing3 from "../../images/rooms/king-size/Вхідна зона та гардероб.webp";
+import imgKing4 from "../../images/rooms/king-size/Душова з керамічною плиткою.webp";
+import imgKing5 from "../../images/rooms/king-size/Санвузол з червоною акцентною стіною.webp";
+import imgCity1 from "../../images/rooms/city-view/загальний план кімнати.webp";
+import imgCity2 from "../../images/rooms/city-view/спальня трьохмісна.webp";
+import imgSimple1 from "../../images/rooms/simple/кімната з диваном.webp";
+import imgSimple2 from "../../images/rooms/simple/спальня з душем у кімнаті.webp";
+import imgSimple3 from "../../images/rooms/simple/душова за склом.webp";
 
 const roomThemes = [
   { bg: C.darkBg, surface: C.darkSurface, photoBg: "linear-gradient(135deg,#0f1214 0%,#1a1c20 60%,rgba(200,16,46,0.06) 100%)", labelColor: C.red, textColor: C.text, mutedColor: C.muted, borderColor: C.redBorder, reverse: false },
@@ -18,9 +25,9 @@ export default function Rooms({ sectionRef, boxRef, headingRef }) {
   const setRef = (el) => { ref.current = el; if (sectionRef) sectionRef.current = el; };
 
   const rooms = [
-    { id: "01", name: "Standard King", desc: "Двоспальне ліжко king-size, вид на місто, власна ванна кімната з підігрівом підлоги. Кондиціонер, телевізор, холодильник.", price: "від 1 150 ₴", tags: ["King-size", "Вид на місто", "Кондиціонер", "Wi-Fi", "Холодильник", "14 м²"], image: imgStandard },
-    { id: "02", name: "Triple Room", desc: "Ліжко king-size + диван-ліжко. Більше простору, підходить для сімей або невеликої компанії. Вид на місто.", price: "від 1 350 ₴", tags: ["King + Sofa", "Вид на місто", "Кондиціонер", "Wi-Fi", "Рушники", "20 м²"], image: imgTripleCity },
-    { id: "03", name: "Triple Comfort", desc: "Тримісний номер без виду на місто — тихіший варіант. Ті самі зручності за нижчою ціною.", price: "від 1 250 ₴", tags: ["King + Sofa", "Тихий поверх", "Кондиціонер", "Wi-Fi", "Білизна", "20 м²"], image: imgTriple },
+    { id: "01", name: "Standard King", desc: "Двоспальне ліжко king-size, вид на місто, власна ванна кімната з підігрівом підлоги. Кондиціонер, телевізор, холодильник.", price: "від 1 150 ₴", guests: 2, tags: ["King-size", "Вид на місто", "Кондиціонер", "Wi-Fi", "Холодильник", "14 м²"], images: [imgKing1, imgKing2, imgKing3, imgKing4, imgKing5] },
+    { id: "02", name: "Triple Room", desc: "Ліжко king-size + диван-ліжко. Більше простору, підходить для сімей або невеликої компанії. Вид на місто.", price: "від 1 350 ₴", guests: 3, tags: ["King + Sofa", "Вид на місто", "Кондиціонер", "Wi-Fi", "Рушники", "20 м²"], images: [imgCity1, imgCity2] },
+    { id: "03", name: "Triple Comfort", desc: "Тримісний номер без виду на місто — тихіший варіант. Ті самі зручності за нижчою ціною.", price: "від 1 250 ₴", guests: 3, tags: ["King + Sofa", "Тихий поверх", "Кондиціонер", "Wi-Fi", "Білизна", "20 м²"], images: [imgSimple1, imgSimple2, imgSimple3] },
   ];
 
   return (

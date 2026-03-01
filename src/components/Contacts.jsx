@@ -7,7 +7,8 @@ import Label from "./ui/Label.jsx";
 import HotelMap from "./ui/HotelMap.jsx";
 
 const MAPS_URL = "https://www.google.com/maps/search/Першотравнева+9Б+Кам'янець-Подільський";
-const BOOKING_URL = "https://www.booking.com/hotel/ua/red-cube.uk.html";
+const BOOKING_URL = "https://www.booking.com/hotel/ua/red-cube-kamianets-39-podil-39-s-39-kyi1.uk.html";
+const INSTAGRAM_URL = "https://www.instagram.com/red_cube_hotel/";
 const PHONE = "+380985378717";
 const PHONE_DISPLAY = "+38 098 537 87 17";
 
@@ -59,17 +60,17 @@ export default function Contacts({ headingRef }) {
               </div>
 
               <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginTop: "auto" }}>
-                <a href={"https://wa.me/" + PHONE.replace("+", "")} target="_blank" rel="noreferrer"
+                <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer"
                   style={{ display: "block", textAlign: "center", border: "1px solid " + C.red, color: C.red, padding: "12px 20px", fontSize: "10px", letterSpacing: "0.24em", textTransform: "uppercase", fontFamily: "'DM Mono',monospace", textDecoration: "none", transition: "all 0.3s" }}
                   onMouseEnter={e => { e.currentTarget.style.background = C.red; e.currentTarget.style.color = "#fff"; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = C.red; }}>Написати в WhatsApp</a>
+                  onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = C.red; }}>Написати в Instagram</a>
                 <a href={BOOKING_URL} target="_blank" rel="noreferrer"
                   style={{ display: "block", textAlign: "center", background: C.red, color: "#fff", padding: "14px 20px", fontSize: "10px", letterSpacing: "0.24em", textTransform: "uppercase", fontFamily: "'DM Mono',monospace", textDecoration: "none", opacity: 1, transition: "opacity 0.3s" }}
                   onMouseEnter={e => e.currentTarget.style.opacity = "0.85"}
                   onMouseLeave={e => e.currentTarget.style.opacity = "1"}>Забронювати на Booking</a>
                 <div style={{ display: "flex", justifyContent: "center", gap: "16px", paddingTop: "4px" }}>
                   {[
-                    { label: "Instagram", href: "#" },
+                    { label: "Instagram", href: "https://www.instagram.com/red_cube_hotel/" },
                     { label: "Google Maps", href: MAPS_URL },
                     { label: "Booking.com", href: BOOKING_URL },
                   ].map((s, i) => (

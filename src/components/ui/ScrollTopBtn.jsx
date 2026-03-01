@@ -1,18 +1,29 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, memo } from "react";
 import C from "../../constants/colors.js";
 
-export default function ScrollTopBtn() {
+const ScrollTopBtn = memo(function ScrollTopBtn() {
   const [visible, setVisible] = useState(false);
+  const elRef = useRef(null);
+
   useEffect(() => {
     const el = document.getElementById("rc-scroll");
     if (!el) return;
-    const fn = () => setVisible(el.scrollTop > 400);
-    el.addEventListener("scroll", fn);
+    elRef.current = el;
+    let ticking = false;
+    const fn = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setVisible(el.scrollTop > 400);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    el.addEventListener("scroll", fn, { passive: true });
     return () => el.removeEventListener("scroll", fn);
   }, []);
 
-  const scrollTop = () =>
-    document.getElementById("rc-scroll")?.scrollTo({ top: 0, behavior: "smooth" });
+  const scrollTop = () => elRef.current?.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
     <button onClick={scrollTop} title="На початок"
@@ -34,4 +45,6 @@ export default function ScrollTopBtn() {
       onMouseLeave={e => { e.currentTarget.style.background = "rgba(14,14,14,0.92)"; e.currentTarget.style.color = C.red; e.currentTarget.style.boxShadow = `0 0 18px ${C.redDim}`; }}
     >↑</button>
   );
-}
+});
+
+export default ScrollTopBtn;

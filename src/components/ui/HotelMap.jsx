@@ -23,26 +23,57 @@ export default function HotelMap() {
         dragging: false,
       });
 
-      // темна тема з підписами вулиць
-      Lf.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+      // CartoDB Voyager — чиста світла карта, мінімалістична
+      Lf.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png", {
         maxZoom: 19,
+        attribution: '© <a href="https://www.openstreetmap.org/copyright">OSM</a> © <a href="https://carto.com/">CARTO</a>',
       }).addTo(map);
 
+      // attribution в кутку, маленький
+      Lf.control.attribution({ position: "bottomleft", prefix: false }).addTo(map);
+
+      // пульсуючий маркер
       const icon = Lf.divIcon({
-        html: `<div style="width:10px;height:10px;background:#C8102E;border-radius:50%;box-shadow:0 0 0 3px rgba(200,16,46,0.2),0 0 14px rgba(200,16,46,0.7);"></div>`,
-        iconSize: [10, 10],
-        iconAnchor: [5, 5],
+        html: `
+          <div style="position:relative;width:32px;height:32px;">
+            <div style="
+              position:absolute;inset:0;
+              border-radius:50%;
+              background:rgba(200,16,46,0.15);
+              animation:rc-pulse 2s ease-out infinite;
+            "></div>
+            <div style="
+              position:absolute;top:50%;left:50%;
+              transform:translate(-50%,-50%);
+              width:12px;height:12px;
+              background:#C8102E;
+              border-radius:50%;
+              border:2px solid #fff;
+              box-shadow:0 2px 8px rgba(200,16,46,0.5);
+            "></div>
+          </div>`,
+        iconSize: [32, 32],
+        iconAnchor: [16, 16],
         className: "",
       });
 
       Lf.marker([LAT, LNG], { icon })
         .addTo(map)
-        .bindTooltip("Red Cube Hotel", {
-          permanent: true,
-          direction: "top",
-          offset: [0, -10],
-          className: "rc-map-tooltip",
-        });
+        .bindTooltip(
+          `<span style="
+            font-family:monospace;
+            font-size:11px;
+            letter-spacing:0.1em;
+            color:#1a1a1a;
+            font-weight:600;
+          ">RED CUBE HOTEL</span>`,
+          {
+            permanent: true,
+            direction: "top",
+            offset: [0, -18],
+            className: "rc-tooltip",
+          }
+        );
 
       mapRef.current = map;
     });
@@ -56,25 +87,33 @@ export default function HotelMap() {
   }, []);
 
   return (
-    <a href={MAPS_URL} target="_blank" rel="noreferrer"
-      style={{ display: "block", position: "relative", width: "100%", height: "100%", minHeight: "360px", cursor: "pointer" }}>
+    <div style={{ position: "relative", width: "100%", height: "100%", minHeight: "360px" }}>
       <style>{`
-        .leaflet-control-attribution { display: none !important; }
-        .rc-map-tooltip {
-          background: rgba(14,14,14,0.9) !important;
-          border: 1px solid rgba(200,16,46,0.3) !important;
-          border-radius: 0 !important;
-          color: #C8102E !important;
-          font-family: monospace !important;
-          font-size: 9px !important;
-          letter-spacing: 0.16em !important;
-          padding: 4px 8px !important;
-          box-shadow: none !important;
-          white-space: nowrap !important;
+        @keyframes rc-pulse {
+          0%   { transform: scale(0.6); opacity: 0.8; }
+          100% { transform: scale(2.2); opacity: 0; }
         }
-        .rc-map-tooltip::before { display: none !important; }
+        .rc-tooltip {
+          background: #fff !important;
+          border: none !important;
+          border-radius: 2px !important;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+          padding: 5px 10px !important;
+        }
+        .rc-tooltip::before { display: none !important; }
+        .leaflet-control-attribution {
+          font-size: 9px !important;
+          background: rgba(255,255,255,0.7) !important;
+        }
       `}</style>
-      <div ref={containerRef} style={{ width: "100%", height: "100%", minHeight: "360px", background: "#0e0e0e", pointerEvents: "none" }} />
-    </a>
+      <div ref={containerRef} style={{ width: "100%", height: "100%", minHeight: "360px" }} />
+      <a
+        href={MAPS_URL}
+        target="_blank"
+        rel="noreferrer"
+        style={{ position: "absolute", inset: 0, zIndex: 1000, cursor: "pointer" }}
+        aria-label="Відкрити на Google Maps"
+      />
+    </div>
   );
 }

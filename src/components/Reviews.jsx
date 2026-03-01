@@ -48,9 +48,9 @@ export default function Reviews({ sectionRef, boxRef, headingRef }) {
           ))}
         </div>
         <Slide inView={inView} delay={0.5} style={{ marginTop: "20px", textAlign: "right" }}>
-          <a href="https://www.booking.com" target="_blank" rel="noreferrer" style={{ fontSize: "10px", letterSpacing: "0.25em", color: C.mutedWarm, fontFamily: "'DM Mono',monospace", textDecoration: "none", borderBottom: `1px solid rgba(200,140,100,0.2)`, paddingBottom: "3px", transition: "all 0.2s" }}
+          <a href="https://www.booking.com/hotel/ua/red-cube-kamianets-39-podil-39-s-39-kyi1.uk.html#tab-reviews" target="_blank" rel="noreferrer" style={{ fontSize: "10px", letterSpacing: "0.25em", color: C.mutedWarm, fontFamily: "'DM Mono',monospace", textDecoration: "none", borderBottom: `1px solid rgba(200,140,100,0.2)`, paddingBottom: "3px", transition: "all 0.2s" }}
             onMouseEnter={e => { e.target.style.color = "rgba(210,150,110,0.85)"; e.target.style.borderColor = "rgba(200,140,100,0.6)"; }}
-            onMouseLeave={e => { e.target.style.color = C.mutedWarm; e.target.style.borderColor = "rgba(200,140,100,0.2)"; }}>ВСІ ВІДГУКИ НА BOOKING →</a>
+            onMouseLeave={e => { e.target.style.color = C.mutedWarm; e.target.style.borderColor = "rgba(200,140,100,0.2)"; }}>БІЛЬШЕ ВІДГУКІВ НА BOOKING →</a>
         </Slide>
       </div>
     </section>

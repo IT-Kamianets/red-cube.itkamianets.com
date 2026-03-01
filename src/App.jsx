@@ -11,6 +11,7 @@ import Gallery from "./components/Gallery.jsx";
 import Reviews from "./components/Reviews.jsx";
 import Contacts from "./components/Contacts.jsx";
 import ScrollTopBtn from "./components/ui/ScrollTopBtn.jsx";
+import MobileNav from "./components/MobileNav.jsx";
 import Footer from "./components/Footer.jsx";
 import ConnectorLines from "./components/ui/ConnectorLines.jsx";
 
@@ -59,19 +60,18 @@ export default function App() {
         #rc-scroll::-webkit-scrollbar-thumb{background:#C8102E;border-radius:0;}
         #rc-scroll::-webkit-scrollbar-thumb:hover{background:#e01535;box-shadow:0 0 8px rgba(200,16,46,0.7);}
         #rc-scroll{scrollbar-width:thin;scrollbar-color:#C8102E rgba(14,14,14,0.8);}
-        .nav-burger{display:none;}
-        .nav-mobile-menu{display:none;}
+        .mobile-nav{display:none!important;}
         @media(max-width:640px){
           .nav-links{display:none!important;}
-          .nav-burger{display:flex!important;}
-          .nav-mobile-menu{display:flex!important;}
-        }
-        @media(max-width:600px){
-          .gallery-grid{grid-template-columns:repeat(2,1fr)!important;}
+          .mobile-nav{display:flex!important;}
+          #rc-scroll{padding-bottom:58px;}
         }
         @media(max-width:560px){
           .room-row{flex-direction:column!important;}
           .room-photo{flex:0 0 200px!important;min-height:200px!important;}
+        }
+        @media(prefers-reduced-motion:reduce){
+          *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;}
         }
       `}</style>
       <Nav />
@@ -86,6 +86,7 @@ export default function App() {
       <Contacts headingRef={contactsH2} />
       <ScrollTopBtn />
       <Footer />
+      <MobileNav />
 
       {/* Global connector lines — renders above all content, no section clipping */}
       <ConnectorLines

@@ -82,19 +82,26 @@ export default function ConnectorLines({ pairs, scrollContainerRef }) {
     // Measure on mount / scroll / resize
     useEffect(() => {
         measure();
-        const ro = new ResizeObserver(measure);
+        let ticking = false;
+        const rafMeasure = () => {
+            if (!ticking) {
+                requestAnimationFrame(() => { measure(); ticking = false; });
+                ticking = true;
+            }
+        };
+        const ro = new ResizeObserver(rafMeasure);
         pairs.forEach(({ boxRef, nextHeadingRef, sectionRef }) => {
             if (boxRef.current) ro.observe(boxRef.current);
             if (sectionRef?.current) ro.observe(sectionRef.current);
             if (nextHeadingRef?.current) ro.observe(nextHeadingRef.current);
         });
         const el = scrollContainerRef.current;
-        if (el) el.addEventListener("scroll", measure, { passive: true });
-        window.addEventListener("resize", measure);
+        if (el) el.addEventListener("scroll", rafMeasure, { passive: true });
+        window.addEventListener("resize", rafMeasure);
         return () => {
             ro.disconnect();
-            if (el) el.removeEventListener("scroll", measure);
-            window.removeEventListener("resize", measure);
+            if (el) el.removeEventListener("scroll", rafMeasure);
+            window.removeEventListener("resize", rafMeasure);
         };
     }, [measure, pairs, scrollContainerRef]);
 

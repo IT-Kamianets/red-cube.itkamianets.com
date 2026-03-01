@@ -1,9 +1,10 @@
 import C from "../constants/colors.js";
+import styles from "./Footer.module.css";
 
 const PHONE_DISPLAY = "+38 098 537 87 17";
 const PHONE = "+380985378717";
 const MAPS_URL = "https://www.google.com/maps/search/Першотравнева+9Б+Кам'янець-Подільський";
-const BOOKING_URL = "https://www.booking.com/hotel/ua/red-cube.uk.html";
+const BOOKING_URL = "https://www.booking.com/hotel/ua/red-cube-kamianets-39-podil-39-s-39-kyi1.uk.html";
 
 const scrollTo = (id) =>
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -18,77 +19,113 @@ const navLinks = [
   ["Контакти", "contacts"],
 ];
 
+const InstagramIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+  </svg>
+);
+
+const BookingIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M5.5 4h5.5c4.5 0 6.5 2 6.5 5 0 1.9-1.2 3.5-3 4.3 2.5 0.5 4.5 2.4 4.5 5.2 0 3-2.5 5.5-7 5.5H5.5V4Zm4.5 7h1c2 0 3-.8 3-2.5S13 6 11 6h-1v5Zm0 9h1.5c2.5 0 3.5-1 3.5-3.2 0-2.2-1.5-3.3-3.5-3.3H10v6.5Z" />
+    <circle cx="21" cy="20.5" r="2.5" />
+  </svg>
+);
+
+const MapsIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+    <circle cx="12" cy="10" r="3"></circle>
+  </svg>
+);
+
 export default function Footer() {
   return (
-    <footer style={{ background: C.surface, borderTop: `1px solid ${C.redBorder}` }}>
-      <div style={{ maxWidth: "920px", margin: "0 auto", padding: "clamp(40px,7vw,72px) clamp(20px,5vw,64px) clamp(32px,5vw,56px)", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(180px,1fr))", gap: "clamp(32px,5vw,56px)" }}>
+    <footer
+      className={styles.footer}
+      id="contacts"
+      style={{
+        '--c-bg': C.surface,
+        '--c-text': C.text,
+        '--c-red': C.red,
+        '--c-muted': C.muted,
+        '--c-border': C.redBorder,
+        '--c-red-glow': C.redGlow
+      }}
+    >
+      <div className={styles.noiseOverlay}></div>
+      <div className={styles.ambientGlow}></div>
 
-        {/* Brand */}
-        <div>
+      <div className={styles.container}>
+        {/* Massive Branding Side */}
+        <div className={styles.brandSection}>
           <div
+            className={styles.logoGiant}
             onClick={() => document.getElementById("rc-scroll")?.scrollTo({ top: 0, behavior: "smooth" })}
-            style={{ fontSize: "18px", fontFamily: "'Playfair Display',serif", color: C.text, fontWeight: "700", letterSpacing: "0.04em", cursor: "pointer", display: "inline-block", marginBottom: "14px" }}>
-            R<span style={{ fontSize: "10px", color: C.muted, letterSpacing: "0.22em", marginLeft: "6px", fontFamily: "'DM Mono',monospace", fontWeight: "400" }}>CUBE</span>
+          >
+            R<span className={styles.logoSup}>CUBE</span>
           </div>
-          <p style={{ fontSize: "12px", color: C.muted, lineHeight: 1.75, marginBottom: "18px" }}>
+          <p className={styles.brandSubtitle}>
             Готель нового формату<br />у серці Кам'янець-Подільського
           </p>
-          <div style={{ display: "flex", gap: "12px" }}>
-            {[["IG", "#"], ["BK", BOOKING_URL], ["GM", MAPS_URL]].map(([label, href], i) => (
-              <a key={i} href={href} target={href !== "#" ? "_blank" : undefined} rel="noreferrer"
-                style={{ width: "28px", height: "28px", border: `1px solid ${C.redBorder}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "8px", letterSpacing: "0.1em", color: C.muted, fontFamily: "'DM Mono',monospace", textDecoration: "none", transition: "all 0.2s" }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = C.red; e.currentTarget.style.color = C.red; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = C.redBorder; e.currentTarget.style.color = C.muted; }}>{label}</a>
+
+          <div className={styles.socials}>
+            {[
+              [<InstagramIcon key="ig" />, "https://www.instagram.com/red_cube_hotel/"],
+              [<BookingIcon key="bk" />, BOOKING_URL],
+              [<MapsIcon key="gm" />, MAPS_URL]
+            ].map(([icon, href], i) => (
+              <a key={i} href={href} target="_blank" rel="noreferrer" aria-label={["Instagram", "Booking.com", "Google Maps"][i]} className={styles.socialLink}>
+                <span className={styles.socialCorner1}></span>
+                <span className={styles.socialCorner2}></span>
+                {icon}
+              </a>
             ))}
           </div>
         </div>
 
-        {/* Навігація */}
-        <div>
-          <div style={{ fontSize: "9px", letterSpacing: "0.28em", color: C.red, fontFamily: "'DM Mono',monospace", marginBottom: "18px" }}>НАВІГАЦІЯ</div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-            {navLinks.map(([label, id], i) => (
-              <a key={i} href={`#${id}`}
-                onClick={e => { e.preventDefault(); scrollTo(id); }}
-                style={{ fontSize: "11px", color: C.muted, textDecoration: "none", fontFamily: "'DM Mono',monospace", letterSpacing: "0.08em", transition: "color 0.2s", cursor: "pointer" }}
-                onMouseEnter={e => e.target.style.color = C.text}
-                onMouseLeave={e => e.target.style.color = C.muted}>{label}</a>
-            ))}
+        {/* Info Grid Side */}
+        <div className={styles.infoSection}>
+          <div className={styles.navBlock}>
+            <div className={styles.blockTitle}>[НАВІГАЦІЯ]</div>
+            <nav className={styles.navGrid}>
+              {navLinks.map(([label, id], i) => (
+                <a key={i} href={`#${id}`} onClick={e => { e.preventDefault(); scrollTo(id); }} className={styles.navLink}>
+                  <span className={styles.linkMarker}></span>
+                  <span className={styles.linkLabel}>{label}</span>
+                </a>
+              ))}
+            </nav>
           </div>
-        </div>
 
-        {/* Контакти */}
-        <div>
-          <div style={{ fontSize: "9px", letterSpacing: "0.28em", color: C.red, fontFamily: "'DM Mono',monospace", marginBottom: "18px" }}>КОНТАКТИ</div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-            <a href={`tel:${PHONE}`}
-              style={{ fontSize: "13px", color: C.muted, textDecoration: "none", fontFamily: "'DM Mono',monospace", transition: "color 0.2s" }}
-              onMouseEnter={e => e.target.style.color = C.text}
-              onMouseLeave={e => e.target.style.color = C.muted}>{PHONE_DISPLAY}</a>
-            <a href={MAPS_URL} target="_blank" rel="noreferrer"
-              style={{ fontSize: "12px", color: C.muted, lineHeight: 1.65, textDecoration: "none", transition: "color 0.2s" }}
-              onMouseEnter={e => e.currentTarget.style.color = C.text}
-              onMouseLeave={e => e.currentTarget.style.color = C.muted}>
-              вул. Першотравнева 9Б<br />Кам'янець-Подільський
-            </a>
-            <div style={{ fontSize: "11px", color: C.muted, fontFamily: "'DM Mono',monospace" }}>
-              <span style={{ color: "rgba(200,16,46,0.6)" }}>▸</span> Заїзд з 14:00
-            </div>
-            <div style={{ fontSize: "11px", color: C.muted, fontFamily: "'DM Mono',monospace" }}>
-              <span style={{ color: "rgba(200,16,46,0.6)" }}>▸</span> Виїзд до 11:00
-            </div>
-            <div style={{ fontSize: "11px", color: C.muted, fontFamily: "'DM Mono',monospace" }}>
-              <span style={{ color: "rgba(200,16,46,0.6)" }}>▸</span> Стійка 24/7
+          <div className={styles.contactBlock}>
+            <div className={styles.blockTitle}>[КОНТАКТИ]</div>
+            <div className={styles.contactList}>
+              <a href={`tel:${PHONE}`} className={styles.contactItemMain}>{PHONE_DISPLAY}</a>
+              <a href={MAPS_URL} target="_blank" rel="noreferrer" className={styles.contactItemMain}>
+                вул. Першотравнева 9Б<br />Кам'янець-Подільський
+              </a>
+              <div className={styles.rulesList}>
+                <div className={styles.ruleItem}>
+                  <span className={styles.ruleIcon}>&#9642;</span> ЗАЇЗД З 14:00
+                </div>
+                <div className={styles.ruleItem}>
+                  <span className={styles.ruleIcon}>&#9642;</span> ВИЇЗД ДО 11:00
+                </div>
+                <div className={styles.ruleItem}>
+                  <span className={styles.ruleIcon}>&#9642;</span> СТІЙКА 24/7
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
       </div>
 
-      {/* Copyright bar */}
-      <div style={{ borderTop: `1px solid rgba(200,16,46,0.1)`, padding: "16px clamp(20px,5vw,64px)", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "8px" }}>
-        <span style={{ fontSize: "10px", color: "rgba(106,101,96,0.5)", fontFamily: "'DM Mono',monospace" }}>© 2025 Red Cube Hotel</span>
-        <span style={{ fontSize: "10px", color: "rgba(106,101,96,0.35)", fontFamily: "'DM Mono',monospace", letterSpacing: "0.08em" }}>9.3 · BOOKING.COM · 715 ВІДГУКІВ</span>
+      <div className={styles.bottomBar}>
+        <div className={styles.copyright}>© {new Date().getFullYear()} RED CUBE HOTEL</div>
+        <div className={styles.rating}>9.3 <span className={styles.dot}>·</span> BOOKING.COM <span className={styles.dot}>·</span> 715 ВІДГУКІВ</div>
       </div>
     </footer>
   );

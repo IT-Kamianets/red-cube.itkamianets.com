@@ -1,4 +1,6 @@
-export default function NeonBorder({
+import { memo } from "react";
+
+const NeonBorder = memo(function NeonBorder({
   active,
   children,
   style = {},
@@ -44,4 +46,6 @@ export default function NeonBorder({
       <span style={line({ bottom: 0, left: 0, width: "1px", height: "100%", transformOrigin: "bottom", transform: active ? "scaleY(1)" : "scaleY(0)", transitionDelay: d(3) })} />
     </div>
   );
-}
+});
+
+export default NeonBorder;
