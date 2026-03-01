@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import C from "./constants/colors.js";
 import Nav from "./components/Nav.jsx";
 import Hero from "./components/Hero.jsx";
@@ -16,7 +16,12 @@ import Footer from "./components/Footer.jsx";
 import ConnectorLines from "./components/ui/ConnectorLines.jsx";
 
 export default function App() {
-  const scrollRef = useRef(null);
+  useEffect(() => {
+    document.documentElement.style.background = C.bg;
+    document.body.style.background = C.bg;
+    document.body.style.margin = "0";
+    document.body.style.overflowX = "hidden";
+  }, []);
 
   // boxRefs — point to the main content block in each section (NeonBorder / cards)
   const aboutBox = useRef(null);
@@ -41,7 +46,7 @@ export default function App() {
   const contactsH2 = useRef(null);
 
   return (
-    <div id="rc-scroll" ref={scrollRef} style={{ position: "relative", background: C.bg, color: C.text, fontFamily: "Inter,sans-serif", height: "100dvh", overflowY: "auto", overflowX: "hidden" }}>
+    <div id="rc-scroll" style={{ position: "relative", background: C.bg, color: C.text, fontFamily: "Inter,sans-serif", overflowX: "hidden" }}>
       <style>{`
         *{margin:0;padding:0;box-sizing:border-box;}
         @keyframes pulse{0%,100%{opacity:0.3}50%{opacity:1}}
@@ -55,16 +60,16 @@ export default function App() {
           50%{opacity:0.6;box-shadow:0 0 8px rgba(200,16,46,0.5)}
         }
         ::selection{background:#C8102E;color:#fff;}
-        #rc-scroll::-webkit-scrollbar{width:4px;}
-        #rc-scroll::-webkit-scrollbar-track{background:rgba(14,14,14,0.8);}
-        #rc-scroll::-webkit-scrollbar-thumb{background:#C8102E;border-radius:0;}
-        #rc-scroll::-webkit-scrollbar-thumb:hover{background:#e01535;box-shadow:0 0 8px rgba(200,16,46,0.7);}
-        #rc-scroll{scrollbar-width:thin;scrollbar-color:#C8102E rgba(14,14,14,0.8);}
+        ::-webkit-scrollbar{width:4px;}
+        ::-webkit-scrollbar-track{background:rgba(14,14,14,0.8);}
+        ::-webkit-scrollbar-thumb{background:#C8102E;border-radius:0;}
+        ::-webkit-scrollbar-thumb:hover{background:#e01535;box-shadow:0 0 8px rgba(200,16,46,0.7);}
+        html{scrollbar-width:thin;scrollbar-color:#C8102E rgba(14,14,14,0.8);}
         .mobile-nav{display:none!important;}
         @media(max-width:640px){
           .nav-links{display:none!important;}
           .mobile-nav{display:flex!important;}
-          #rc-scroll{padding-bottom:58px;}
+          body{padding-bottom:58px;}
           .scroll-top-btn{display:none!important;}
         }
         @media(max-width:560px){
@@ -91,7 +96,6 @@ export default function App() {
 
       {/* Global connector lines — renders above all content, no section clipping */}
       <ConnectorLines
-        scrollContainerRef={scrollRef}
         pairs={[
           { sectionRef: aboutSection, boxRef: aboutBox, nextHeadingRef: roomsH2, vDelay: 1.60, hDelay: 1.15 },
           { sectionRef: roomsSection, boxRef: roomsBox, nextHeadingRef: diningH2, vDelay: 0.15, hDelay: 0.15, tailTriggerRef: diningH2 },

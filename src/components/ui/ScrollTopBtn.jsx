@@ -1,29 +1,25 @@
-import { useState, useEffect, useRef, memo } from "react";
+import { useState, useEffect, memo } from "react";
 import C from "../../constants/colors.js";
 
 const ScrollTopBtn = memo(function ScrollTopBtn() {
   const [visible, setVisible] = useState(false);
-  const elRef = useRef(null);
 
   useEffect(() => {
-    const el = document.getElementById("rc-scroll");
-    if (!el) return;
-    elRef.current = el;
     let ticking = false;
     const fn = () => {
       if (!ticking) {
         requestAnimationFrame(() => {
-          setVisible(el.scrollTop > 400);
+          setVisible(window.scrollY > 400);
           ticking = false;
         });
         ticking = true;
       }
     };
-    el.addEventListener("scroll", fn, { passive: true });
-    return () => el.removeEventListener("scroll", fn);
+    window.addEventListener("scroll", fn, { passive: true });
+    return () => window.removeEventListener("scroll", fn);
   }, []);
 
-  const scrollTop = () => elRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+  const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
     <button onClick={scrollTop} title="На початок" className="scroll-top-btn"

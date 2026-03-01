@@ -37,33 +37,28 @@ const links = [
 ];
 
 const scrollTo = (id) => {
-  const container = document.getElementById("rc-scroll");
   const el = document.getElementById(id);
-  if (!container || !el) return;
-  const containerTop = container.getBoundingClientRect().top;
-  const elTop = el.getBoundingClientRect().top;
-  container.scrollBy({ top: elTop - containerTop - 8, behavior: "smooth" });
+  if (!el) return;
+  el.scrollIntoView({ behavior: "smooth" });
 };
 
 export default function MobileNav() {
   const [active, setActive] = useState(null);
 
   useEffect(() => {
-    const container = document.getElementById("rc-scroll");
-    if (!container) return;
     const sections = links.filter(l => l.id).map(l => document.getElementById(l.id)).filter(Boolean);
 
     const fn = () => {
-      const scrollMid = container.scrollTop + container.clientHeight / 2;
+      const scrollMid = window.scrollY + window.innerHeight / 2;
       let current = null;
       for (const sec of sections) {
         if (sec.offsetTop <= scrollMid) current = sec.id;
       }
       setActive(current);
     };
-    container.addEventListener("scroll", fn, { passive: true });
+    window.addEventListener("scroll", fn, { passive: true });
     fn();
-    return () => container.removeEventListener("scroll", fn);
+    return () => window.removeEventListener("scroll", fn);
   }, []);
 
   return (

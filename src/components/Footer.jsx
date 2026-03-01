@@ -63,7 +63,7 @@ export default function Footer() {
         <div className={styles.brandSection}>
           <div
             className={styles.logoGiant}
-            onClick={() => document.getElementById("rc-scroll")?.scrollTo({ top: 0, behavior: "smooth" })}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
             R<span className={styles.logoSup}>CUBE</span>
           </div>

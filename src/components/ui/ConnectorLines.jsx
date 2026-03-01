@@ -14,29 +14,26 @@ const EASE = "cubic-bezier(.4,0,.2,1)";
  * pairs: [{ sectionRef, boxRef, nextHeadingRef, animDelay }]
  *   animDelay — when vertical tail starts (s), horizontal = animDelay + 0.3s
  */
-export default function ConnectorLines({ pairs, scrollContainerRef }) {
+export default function ConnectorLines({ pairs }) {
     const [lines, setLines] = useState([]);
     const [inViews, setInViews] = useState(() => pairs.map(() => false));
     const triggered = useRef(pairs.map(() => false));
 
     const measure = useCallback(() => {
-        const container = scrollContainerRef.current;
-        if (!container) return;
-        const cRect = container.getBoundingClientRect();
-        const scrollTop = container.scrollTop;
+        const scrollTop = window.scrollY;
 
         setLines(pairs.map(({ boxRef, nextHeadingRef }) => {
             if (!boxRef.current) return null;
             const bRect = boxRef.current.getBoundingClientRect();
-            const boxBottom = bRect.bottom - cRect.top + scrollTop;
-            const boxLeft = bRect.left - cRect.left;
-            const boxRight = bRect.right - cRect.left;
-            const contWidth = container.clientWidth;
+            const boxBottom = bRect.bottom + scrollTop;
+            const boxLeft = bRect.left;
+            const boxRight = bRect.right;
+            const contWidth = document.documentElement.clientWidth;
 
             let downH = 0;
             if (nextHeadingRef && nextHeadingRef.current) {
                 const nRect = nextHeadingRef.current.getBoundingClientRect();
-                const headingTop = nRect.top - cRect.top + scrollTop;
+                const headingTop = nRect.top + scrollTop;
                 // Stop LABEL_OFFSET px above the label div
                 downH = Math.max(0, headingTop - LABEL_OFFSET - boxBottom);
             }
@@ -49,12 +46,11 @@ export default function ConnectorLines({ pairs, scrollContainerRef }) {
                 rightW: Math.max(0, contWidth - boxRight),
             };
         }));
-    }, [pairs, scrollContainerRef]);
+    }, [pairs]);
 
     // Trigger: use tailTriggerRef if provided (for tall sections like Rooms), else boxRef
     useEffect(() => {
-        const container = scrollContainerRef.current;
-        const observers = pairs.map(({ boxRef, nextHeadingRef, tailTriggerRef }, i) => {
+        const observers = pairs.map(({ boxRef, tailTriggerRef }, i) => {
             const target = tailTriggerRef?.current ?? boxRef.current;
             if (!target) return null;
             // For nextHeadingRef targets: fire as soon as heading enters view (threshold 0)
@@ -68,7 +64,7 @@ export default function ConnectorLines({ pairs, scrollContainerRef }) {
                     }
                 },
                 {
-                    root: container,
+                    root: null,
                     rootMargin: usingNextHeading ? "0px 0px -5% 0px" : "0px 0px -10% 0px",
                     threshold: usingNextHeading ? 0 : 0.4,
                 }
@@ -77,7 +73,7 @@ export default function ConnectorLines({ pairs, scrollContainerRef }) {
             return obs;
         });
         return () => observers.forEach(o => o && o.disconnect());
-    }, [pairs, scrollContainerRef]);
+    }, [pairs]);
 
     // Measure on mount / scroll / resize
     useEffect(() => {
@@ -95,15 +91,14 @@ export default function ConnectorLines({ pairs, scrollContainerRef }) {
             if (sectionRef?.current) ro.observe(sectionRef.current);
             if (nextHeadingRef?.current) ro.observe(nextHeadingRef.current);
         });
-        const el = scrollContainerRef.current;
-        if (el) el.addEventListener("scroll", rafMeasure, { passive: true });
+        window.addEventListener("scroll", rafMeasure, { passive: true });
         window.addEventListener("resize", rafMeasure);
         return () => {
             ro.disconnect();
-            if (el) el.removeEventListener("scroll", rafMeasure);
+            window.removeEventListener("scroll", rafMeasure);
             window.removeEventListener("resize", rafMeasure);
         };
-    }, [measure, pairs, scrollContainerRef]);
+    }, [measure, pairs]);
 
     return (
         <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 10 }}>

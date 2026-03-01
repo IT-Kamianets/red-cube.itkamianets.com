@@ -19,17 +19,15 @@ export default function Nav() {
   const [logoHover, setLogoHover] = useState(false);
 
   useEffect(() => {
-    const el = document.getElementById("rc-scroll");
-    if (!el) return;
-    const fn = () => setScrolled(el.scrollTop > 60);
-    el.addEventListener("scroll", fn);
-    return () => el.removeEventListener("scroll", fn);
+    const fn = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", fn, { passive: true });
+    return () => window.removeEventListener("scroll", fn);
   }, []);
 
   return (
     <nav style={{ position: "sticky", top: 0, zIndex: 100, padding: "14px clamp(20px,5vw,64px)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px", background: scrolled ? "rgba(14,14,14,0.96)" : "transparent", borderBottom: scrolled ? "1px solid " + C.redBorder : "1px solid transparent", backdropFilter: scrolled ? "blur(14px)" : "none", transition: "all 0.4s ease" }}>
       <div
-        onClick={() => document.getElementById("rc-scroll")?.scrollTo({ top: 0, behavior: "smooth" })}
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         onMouseEnter={() => setLogoHover(true)}
         onMouseLeave={() => setLogoHover(false)}
         style={{ display: "flex", alignItems: "baseline", gap: "8px", cursor: "pointer", flexShrink: 0 }}>

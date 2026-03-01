@@ -10,7 +10,6 @@ export default function useInView(threshold = 0.3) {
 
   useEffect(() => {
     if (inView) return; // already triggered — skip creating observer
-    const root = document.getElementById("rc-scroll");
     const obs = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting) {
@@ -18,7 +17,7 @@ export default function useInView(threshold = 0.3) {
           obs.disconnect(); // one-shot — no need to keep observing
         }
       },
-      { root, rootMargin: "0px 0px -10% 0px", threshold }
+      { root: null, rootMargin: "0px 0px -10% 0px", threshold }
     );
     if (ref.current) obs.observe(ref.current);
     return () => obs.disconnect();
