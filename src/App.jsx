@@ -66,11 +66,14 @@ export default function App() {
         ::-webkit-scrollbar-thumb:hover{background:#e01535;box-shadow:0 0 8px rgba(200,16,46,0.7);}
         html{scrollbar-width:thin;scrollbar-color:#C8102E rgba(14,14,14,0.8);}
         .mobile-nav{display:none!important;}
+        .gallery-mobile{display:none;}
         @media(max-width:640px){
           .nav-links{display:none!important;}
           .mobile-nav{display:flex!important;}
           body{padding-bottom:58px;}
           .scroll-top-btn{display:none!important;}
+          .gallery-mobile{display:block;}
+          .gallery-desktop{display:none;}
         }
         @media(max-width:560px){
           .room-row{flex-direction:column!important;}
