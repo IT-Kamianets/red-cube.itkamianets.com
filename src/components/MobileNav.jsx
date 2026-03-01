@@ -86,7 +86,7 @@ export default function MobileNav() {
               display: "block",
             }}>{link.icon}</span>
             <span style={{
-              fontSize: "8px",
+              fontSize: "10px",
               letterSpacing: "0.08em",
               color: isActive ? C.red : C.muted,
               fontFamily: "'DM Mono',monospace",

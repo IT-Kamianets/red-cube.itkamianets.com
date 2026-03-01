@@ -25,7 +25,7 @@ const ScrollTopBtn = memo(function ScrollTopBtn() {
     <button onClick={scrollTop} title="На початок" className="scroll-top-btn"
       style={{
         position: "fixed", bottom: "28px", right: "clamp(20px,4vw,40px)", zIndex: 200,
-        width: "40px", height: "40px", background: "rgba(14,14,14,0.92)",
+        width: "44px", height: "44px", background: "rgba(14,14,14,0.92)",
         border: `1px solid ${visible ? C.red : "transparent"}`,
         boxShadow: visible ? `0 0 18px ${C.redDim}` : "none",
         color: C.red, fontFamily: "'DM Mono',monospace", fontSize: "16px", cursor: "pointer",

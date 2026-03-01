@@ -27,7 +27,7 @@ const RoomCard = memo(function RoomCard({ room, theme }) {
   }, [images.length]);
 
   const photoBlock = (
-    <div onClick={() => setLightbox(true)} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} style={{ flex: "0 0 clamp(200px,42%,440px)", minHeight: "clamp(220px,40vw,320px)", position: "relative", overflow: "hidden", cursor: "pointer" }}>
+    <div className="room-photo" onClick={() => setLightbox(true)} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} style={{ flex: "0 0 clamp(200px,42%,440px)", minHeight: "clamp(220px,40vw,320px)", position: "relative", overflow: "hidden", cursor: "pointer" }}>
       {images.map((src, i) => {
         const isActive = i === idx;
         const isAdjacent = i === (idx - 1 + images.length) % images.length || i === (idx + 1) % images.length;
@@ -54,13 +54,13 @@ const RoomCard = memo(function RoomCard({ room, theme }) {
       {images.length > 1 && (
         <>
           <button onClick={e => { e.stopPropagation(); setIdx(i => (i - 1 + images.length) % images.length); }} aria-label="Попереднє фото"
-            style={{ position: "absolute", left: "10px", top: "50%", transform: "translateY(-50%)", zIndex: 3, background: "none", border: "none", cursor: "pointer", padding: "6px", filter: "drop-shadow(0 2px 8px rgba(0,0,0,1)) drop-shadow(0 0 4px rgba(0,0,0,1))" }}
+            style={{ position: "absolute", left: "6px", top: "50%", transform: "translateY(-50%)", zIndex: 3, background: "none", border: "none", cursor: "pointer", padding: "10px", filter: "drop-shadow(0 2px 8px rgba(0,0,0,1)) drop-shadow(0 0 4px rgba(0,0,0,1))" }}
             onMouseEnter={e => e.currentTarget.querySelector("path").setAttribute("stroke", C.red)}
             onMouseLeave={e => e.currentTarget.querySelector("path").setAttribute("stroke", "white")}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </button>
           <button onClick={e => { e.stopPropagation(); setIdx(i => (i + 1) % images.length); }} aria-label="Наступне фото"
-            style={{ position: "absolute", right: "10px", top: "50%", transform: "translateY(-50%)", zIndex: 3, background: "none", border: "none", cursor: "pointer", padding: "6px", filter: "drop-shadow(0 2px 8px rgba(0,0,0,1)) drop-shadow(0 0 4px rgba(0,0,0,1))" }}
+            style={{ position: "absolute", right: "6px", top: "50%", transform: "translateY(-50%)", zIndex: 3, background: "none", border: "none", cursor: "pointer", padding: "10px", filter: "drop-shadow(0 2px 8px rgba(0,0,0,1)) drop-shadow(0 0 4px rgba(0,0,0,1))" }}
             onMouseEnter={e => e.currentTarget.querySelector("path").setAttribute("stroke", C.red)}
             onMouseLeave={e => e.currentTarget.querySelector("path").setAttribute("stroke", "white")}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -72,7 +72,7 @@ const RoomCard = memo(function RoomCard({ room, theme }) {
         <div onClick={e => e.stopPropagation()} style={{ position: "absolute", bottom: "10px", left: 0, right: 0, display: "flex", justifyContent: "center", gap: "5px", zIndex: 3 }}>
           {images.map((_, i) => (
             <button key={i} onClick={() => setIdx(i)} aria-label={`Фото ${i + 1}`}
-              style={{ width: i === idx ? "16px" : "5px", height: "5px", borderRadius: "3px", background: i === idx ? C.red : "rgba(255,255,255,0.45)", border: "none", cursor: "pointer", padding: 0, transition: "all 0.3s" }} />
+              style={{ width: i === idx ? "16px" : "8px", height: "8px", borderRadius: "4px", background: i === idx ? C.red : "rgba(255,255,255,0.45)", border: "none", cursor: "pointer", padding: "8px", boxSizing: "content-box", transition: "all 0.3s" }} />
           ))}
         </div>
       )}
@@ -110,7 +110,7 @@ const RoomCard = memo(function RoomCard({ room, theme }) {
 
   return (
     <div ref={ref}>
-      <NeonBorder active={inView} delay="0s" style={{ background: theme.surface, overflow: "hidden" }}>
+      <NeonBorder active={inView} delay="0s" className="room-neon" style={{ background: theme.surface, overflow: "hidden" }}>
         <Slide inView={inView} delay={0.1}>
           <div className="room-row" style={{ display: "flex", flexDirection: theme.reverse ? "row-reverse" : "row", flexWrap: "wrap" }}>
             {photoBlock}{infoBlock}

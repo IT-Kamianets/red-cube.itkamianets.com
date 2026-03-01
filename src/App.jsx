@@ -74,10 +74,20 @@ export default function App() {
           .scroll-top-btn{display:none!important;}
           .gallery-mobile{display:block;}
           .gallery-desktop{display:none;}
+          /* Gallery full-width on mobile */
+          .gallery-section{padding-left:0!important;padding-right:0!important;}
+          .gallery-section > div{padding-left:0!important;padding-right:0!important;max-width:100%!important;}
+          .gallery-header{padding:0 clamp(20px,5vw,40px)!important;}
+          .gallery-footer{padding:0 clamp(20px,5vw,40px)!important;}
         }
         @media(max-width:560px){
+          /* Rooms: прибираємо горизонтальний padding секції — картки full-width */
+          .rooms-section{padding-left:0!important;padding-right:0!important;}
+          .rooms-wrap{max-width:100%!important;margin:0!important;padding:0!important;}
+          .rooms-inner{padding:0 clamp(20px,5vw,40px)!important;}
+          .rooms-cards{gap:1px!important;}
           .room-row{flex-direction:column!important;}
-          .room-photo{flex:0 0 200px!important;min-height:200px!important;}
+          .room-photo{width:100%!important;flex:none!important;min-height:56vw!important;}
         }
         @media(prefers-reduced-motion:reduce){
           *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;}

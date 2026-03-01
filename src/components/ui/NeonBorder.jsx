@@ -6,6 +6,7 @@ const NeonBorder = memo(function NeonBorder({
   style = {},
   delay = "0s",
   color = "#8C0021",
+  className = "",
 }) {
   const base = parseFloat(delay);
   const d = (n) => `${(base + n * 0.45).toFixed(2)}s`;
@@ -22,7 +23,7 @@ const NeonBorder = memo(function NeonBorder({
   });
 
   return (
-    <div style={{
+    <div className={className} style={{
       position: "relative",
       boxShadow: active
         ? `0 0 15px rgba(140,0,33,0.15), 0 0 35px rgba(140,0,33,0.06)`

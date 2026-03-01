@@ -84,13 +84,13 @@ function MobileSlider({ onOpen }) {
         </div>
         {/* prev/next */}
         <button onClick={e => { e.stopPropagation(); prev(); }} aria-label="Попереднє фото"
-          style={{ position: "absolute", left: "10px", top: "50%", transform: "translateY(-50%)", zIndex: 3, background: "none", border: "none", cursor: "pointer", padding: "6px", filter: "drop-shadow(0 2px 8px rgba(0,0,0,1)) drop-shadow(0 0 4px rgba(0,0,0,1))" }}
+          style={{ position: "absolute", left: "6px", top: "50%", transform: "translateY(-50%)", zIndex: 3, background: "none", border: "none", cursor: "pointer", padding: "10px", filter: "drop-shadow(0 2px 8px rgba(0,0,0,1)) drop-shadow(0 0 4px rgba(0,0,0,1))" }}
           onMouseEnter={e => e.currentTarget.querySelector("path").setAttribute("stroke", C.red)}
           onMouseLeave={e => e.currentTarget.querySelector("path").setAttribute("stroke", "white")}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
         </button>
         <button onClick={e => { e.stopPropagation(); next(); }} aria-label="Наступне фото"
-          style={{ position: "absolute", right: "10px", top: "50%", transform: "translateY(-50%)", zIndex: 3, background: "none", border: "none", cursor: "pointer", padding: "6px", filter: "drop-shadow(0 2px 8px rgba(0,0,0,1)) drop-shadow(0 0 4px rgba(0,0,0,1))" }}
+          style={{ position: "absolute", right: "6px", top: "50%", transform: "translateY(-50%)", zIndex: 3, background: "none", border: "none", cursor: "pointer", padding: "10px", filter: "drop-shadow(0 2px 8px rgba(0,0,0,1)) drop-shadow(0 0 4px rgba(0,0,0,1))" }}
           onMouseEnter={e => e.currentTarget.querySelector("path").setAttribute("stroke", C.red)}
           onMouseLeave={e => e.currentTarget.querySelector("path").setAttribute("stroke", "white")}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -100,7 +100,7 @@ function MobileSlider({ onOpen }) {
       <div onClick={e => e.stopPropagation()} style={{ display: "flex", justifyContent: "center", gap: "5px", marginTop: "10px" }}>
         {images.map((_, i) => (
           <button key={i} onClick={() => setIdx(i)} aria-label={`Фото ${i + 1}`}
-            style={{ width: i === idx ? "16px" : "5px", height: "5px", borderRadius: "3px", background: i === idx ? C.red : "rgba(255,255,255,0.3)", border: "none", cursor: "pointer", padding: 0, transition: "all 0.3s" }} />
+            style={{ width: i === idx ? "16px" : "8px", height: "8px", borderRadius: "4px", background: i === idx ? C.red : "rgba(255,255,255,0.3)", border: "none", cursor: "pointer", padding: "8px", boxSizing: "content-box", transition: "all 0.3s" }} />
         ))}
       </div>
     </div>
@@ -114,9 +114,9 @@ const Gallery = memo(function Gallery({ sectionRef, boxRef, headingRef }) {
   const [lightbox, setLightbox] = useState(null); // index or null
 
   return (
-    <section id="gallery" ref={setRef} style={{ background: C.brickBg, padding: "clamp(56px,9vw,112px) clamp(20px,5vw,64px)", borderTop: `1px solid rgba(200,80,80,0.12)` }}>
+    <section id="gallery" ref={setRef} className="gallery-section" style={{ background: C.brickBg, padding: "clamp(56px,9vw,112px) clamp(20px,5vw,64px)", borderTop: `1px solid rgba(200,80,80,0.12)` }}>
       <div style={{ maxWidth: "920px", margin: "0 auto" }}>
-        <div ref={headingRef}>
+        <div ref={headingRef} className="gallery-header">
           <Slide inView={inView} style={{ marginBottom: "clamp(36px,5vw,56px)" }}>
             <Label n="05" text="Галерея" />
             <h2 style={{ fontSize: "clamp(28px,4.5vw,46px)", fontFamily: "'Playfair Display',serif", color: C.text, marginTop: "12px", fontWeight: "400" }}>Gallery</h2>
@@ -149,11 +149,13 @@ const Gallery = memo(function Gallery({ sectionRef, boxRef, headingRef }) {
             </NeonBorder>
           </div>
         </div>
-        <Slide inView={inView} delay={0.5} style={{ marginTop: "18px", textAlign: "right" }}>
-          <a href="https://www.instagram.com/red_cube_hotel/" target="_blank" rel="noreferrer" style={{ fontSize: "10px", letterSpacing: "0.25em", color: C.muted, fontFamily: "'DM Mono',monospace", textDecoration: "none", borderBottom: `1px solid ${C.redBorder}`, paddingBottom: "3px", transition: "all 0.2s" }}
-            onMouseEnter={e => { e.target.style.color = C.red; e.target.style.borderColor = C.red; }}
-            onMouseLeave={e => { e.target.style.color = C.muted; e.target.style.borderColor = C.redBorder; }}>БІЛЬШЕ ФОТО В INSTAGRAM →</a>
-        </Slide>
+        <div className="gallery-footer">
+          <Slide inView={inView} delay={0.5} style={{ marginTop: "18px", textAlign: "right" }}>
+            <a href="https://www.instagram.com/red_cube_hotel/" target="_blank" rel="noreferrer" style={{ fontSize: "10px", letterSpacing: "0.25em", color: C.muted, fontFamily: "'DM Mono',monospace", textDecoration: "none", borderBottom: `1px solid ${C.redBorder}`, paddingBottom: "3px", transition: "all 0.2s" }}
+              onMouseEnter={e => { e.target.style.color = C.red; e.target.style.borderColor = C.red; }}
+              onMouseLeave={e => { e.target.style.color = C.muted; e.target.style.borderColor = C.redBorder; }}>БІЛЬШЕ ФОТО В INSTAGRAM →</a>
+          </Slide>
+        </div>
       </div>
       {lightbox !== null && (
         <Lightbox images={images} startIdx={lightbox} name="Red Cube Hotel" onClose={() => setLightbox(null)} />

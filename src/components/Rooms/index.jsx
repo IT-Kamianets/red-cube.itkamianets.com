@@ -31,15 +31,15 @@ export default function Rooms({ sectionRef, boxRef, headingRef }) {
   ];
 
   return (
-    <section id="rooms" ref={setRef} style={{ background: C.bg, padding: "clamp(56px,9vw,112px) clamp(20px,5vw,64px)" }}>
-      <div style={{ maxWidth: "920px", margin: "0 auto" }}>
-        <div ref={headingRef}>
+    <section id="rooms" ref={setRef} className="rooms-section" style={{ background: C.bg, padding: "clamp(56px,9vw,112px) clamp(20px,5vw,64px)" }}>
+      <div className="rooms-wrap" style={{ maxWidth: "920px", margin: "0 auto" }}>
+        <div ref={headingRef} className="rooms-inner">
           <Slide inView={inView} style={{ marginBottom: "clamp(36px,5vw,56px)" }}>
             <Label n="02" text="Номери" />
             <h2 style={{ fontSize: "clamp(28px,4.5vw,46px)", fontFamily: "'Playfair Display',serif", color: C.text, marginTop: "12px", fontWeight: "400" }}>Spaces</h2>
           </Slide>
         </div>
-        <div ref={boxRef} style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
+        <div ref={boxRef} className="rooms-cards" style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
           {rooms.map((room, i) => (<RoomCard key={i} room={room} theme={roomThemes[i]} />))}
         </div>
       </div>
