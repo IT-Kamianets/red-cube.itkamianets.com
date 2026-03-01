@@ -69,10 +69,10 @@ const RoomCard = memo(function RoomCard({ room, theme }) {
       )}
       {/* Dots */}
       {images.length > 1 && (
-        <div onClick={e => e.stopPropagation()} style={{ position: "absolute", bottom: "10px", left: 0, right: 0, display: "flex", justifyContent: "center", gap: "5px", zIndex: 3 }}>
+        <div onClick={e => e.stopPropagation()} style={{ position: "absolute", bottom: "2px", left: 0, right: 0, display: "flex", justifyContent: "center", gap: "5px", zIndex: 3 }}>
           {images.map((_, i) => (
             <button key={i} onClick={() => setIdx(i)} aria-label={`Фото ${i + 1}`}
-              style={{ width: i === idx ? "16px" : "8px", height: "8px", borderRadius: "4px", background: i === idx ? C.red : "rgba(255,255,255,0.45)", border: "none", cursor: "pointer", padding: "8px", boxSizing: "content-box", transition: "all 0.3s" }} />
+              style={{ width: i === idx ? "16px" : "8px", height: "8px", borderRadius: "4px", background: i === idx ? C.red : "rgba(255,255,255,0.45)", border: "none", cursor: "pointer", padding: 0, margin: "8px 0", transition: "all 0.3s" }} />
           ))}
         </div>
       )}
