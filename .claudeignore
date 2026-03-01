@@ -4,11 +4,31 @@ node_modules/
 # Збірка
 dist/
 
-# Локфайли пакетного менеджера
+# Конфіг Node / інструментарій збірки
+package.json
 package-lock.json
+yarn.lock
+pnpm-lock.yaml
+vite.config.js
+
+# Git-конфіг
+.gitignore
 
 # Системні файли Claude
 .claude/
 
 # Старий монолітний файл (замінений на src/)
 red-cube.itkamianets.com.jsx
+
+# Git
+.git/
+
+# CI/CD
+.github/
+
+# SEO / публічні ресурси (не код)
+public/robots.txt
+public/sitemap.xml
+
+# Домен
+CNAME

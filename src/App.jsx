@@ -41,7 +41,7 @@ export default function App() {
   const contactsH2 = useRef(null);
 
   return (
-    <div id="rc-scroll" ref={scrollRef} style={{ position: "relative", background: C.bg, color: C.text, fontFamily: "Inter,sans-serif", height: "100vh", overflowY: "auto", overflowX: "hidden" }}>
+    <div id="rc-scroll" ref={scrollRef} style={{ position: "relative", background: C.bg, color: C.text, fontFamily: "Inter,sans-serif", height: "100dvh", overflowY: "auto", overflowX: "hidden" }}>
       <style>{`
         *{margin:0;padding:0;box-sizing:border-box;}
         @keyframes pulse{0%,100%{opacity:0.3}50%{opacity:1}}
@@ -65,6 +65,7 @@ export default function App() {
           .nav-links{display:none!important;}
           .mobile-nav{display:flex!important;}
           #rc-scroll{padding-bottom:58px;}
+          .scroll-top-btn{display:none!important;}
         }
         @media(max-width:560px){
           .room-row{flex-direction:column!important;}

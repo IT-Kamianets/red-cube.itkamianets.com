@@ -3,6 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0e0e0e" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
     <!-- Primary SEO -->
     <title>Red Cube Hotel — Готель у Кам'янці-Подільському</title>
@@ -38,22 +41,132 @@
       "description": "Сучасний готель у серці Кам'янця-Подільського з номерами з видом на місто, кухнею 24/7 та зручним розташуванням.",
       "url": "https://red-cube.itkamianets.com/",
       "telephone": "+380985378717",
+      "image": "https://red-cube.itkamianets.com/og-image.webp",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "вул. Першотравнева 9Б",
         "addressLocality": "Кам'янець-Подільський",
         "addressRegion": "Хмельницька область",
+        "postalCode": "32300",
         "addressCountry": "UA"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 48.6779,
+        "longitude": 26.5836
       },
       "priceRange": "від 1 150 ₴",
       "checkinTime": "14:00",
       "checkoutTime": "11:00",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "9.3",
+        "bestRating": "10",
+        "worstRating": "1",
+        "reviewCount": "10",
+        "ratingCount": "10"
+      },
       "amenityFeature": [
         { "@type": "LocationFeatureSpecification", "name": "Wi-Fi", "value": true },
         { "@type": "LocationFeatureSpecification", "name": "Кондиціонер", "value": true },
         { "@type": "LocationFeatureSpecification", "name": "Спільна кухня", "value": true },
-        { "@type": "LocationFeatureSpecification", "name": "Цілодобова стійка", "value": true }
+        { "@type": "LocationFeatureSpecification", "name": "Цілодобова стійка", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "Холодильник", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "Телевізор", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "Безкоштовне паркування", "value": true }
+      ],
+      "containsPlace": [
+        {
+          "@type": "HotelRoom",
+          "name": "Standard King",
+          "description": "Двоспальне ліжко king-size, вид на місто, власна ванна кімната з підігрівом підлоги. Кондиціонер, телевізор, холодильник.",
+          "occupancy": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 2 },
+          "offers": {
+            "@type": "Offer",
+            "price": "1150",
+            "priceCurrency": "UAH",
+            "availability": "https://schema.org/InStock"
+          }
+        },
+        {
+          "@type": "HotelRoom",
+          "name": "Triple Room",
+          "description": "Ліжко king-size + диван-ліжко. Більше простору, підходить для сімей або невеликої компанії. Вид на місто.",
+          "occupancy": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 3 },
+          "offers": {
+            "@type": "Offer",
+            "price": "1350",
+            "priceCurrency": "UAH",
+            "availability": "https://schema.org/InStock"
+          }
+        },
+        {
+          "@type": "HotelRoom",
+          "name": "Triple Comfort",
+          "description": "Тримісний номер без виду на місто — тихіший варіант. Ті самі зручності за нижчою ціною.",
+          "occupancy": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 3 },
+          "offers": {
+            "@type": "Offer",
+            "price": "1250",
+            "priceCurrency": "UAH",
+            "availability": "https://schema.org/InStock"
+          }
+        }
+      ],
+      "review": [
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Kristina" },
+          "datePublished": "2026-02-16",
+          "reviewRating": { "@type": "Rating", "ratingValue": "10", "bestRating": "10" },
+          "reviewBody": "Гарний готель з свіжим ремонтом, дуже тепло. Чудовий персонал, який іде на зустріч, заселили трохи раніше ніж написано. Розташування мені сподобалось, пряма вулиця до старого міста прям від готелю."
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Медведчук" },
+          "datePublished": "2026-01-24",
+          "reviewRating": { "@type": "Rating", "ratingValue": "10", "bestRating": "10" },
+          "reviewBody": "Дуже тепло, чисто, тихо! Опалення не вимикалось, душ має теплу підлогу."
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Nataliia" },
+          "datePublished": "2025-11-25",
+          "reviewRating": { "@type": "Rating", "ratingValue": "10", "bestRating": "10" },
+          "reviewBody": "Дуже сподобався персонал. Мене привітно зустріли і приємно провели. Працівники готелю раді мені були допомогти із моїми маленькими неприємностями за що я дуже вдячна."
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Olya" },
+          "datePublished": "2025-10-30",
+          "reviewRating": { "@type": "Rating", "ratingValue": "10", "bestRating": "10" },
+          "reviewBody": "Гарний готель! Сучасний, все новеньке, чистеньке, є все необхідне. Дякуємо за гостинність."
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Оксана" },
+          "datePublished": "2025-10-29",
+          "reviewRating": { "@type": "Rating", "ratingValue": "9", "bestRating": "10" },
+          "reviewBody": "Чисто, новенький готель. Зустріли, провели, показали, в номері є все. Зона відпочинку, кухня. До старого міста пішки прогулятись — одне задоволення."
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Oleksandr" },
+          "datePublished": "2025-10-28",
+          "reviewRating": { "@type": "Rating", "ratingValue": "9", "bestRating": "10" },
+          "reviewBody": "Ціна якість 10/10. Все нове, красиве, зручне. Буду в Кам'янці — неодмінно скористаюсь сервісом знову."
+        }
       ]
+    }
+    </script>
+
+    <!-- Schema.org WebSite -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Red Cube Hotel",
+      "url": "https://red-cube.itkamianets.com/"
     }
     </script>
 

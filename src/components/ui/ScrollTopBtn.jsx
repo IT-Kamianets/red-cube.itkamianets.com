@@ -26,7 +26,7 @@ const ScrollTopBtn = memo(function ScrollTopBtn() {
   const scrollTop = () => elRef.current?.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <button onClick={scrollTop} title="На початок"
+    <button onClick={scrollTop} title="На початок" className="scroll-top-btn"
       style={{
         position: "fixed", bottom: "28px", right: "clamp(20px,4vw,40px)", zIndex: 200,
         width: "40px", height: "40px", background: "rgba(14,14,14,0.92)",

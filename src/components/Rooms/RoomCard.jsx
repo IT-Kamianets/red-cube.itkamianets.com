@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, memo } from "react";
+import { useState, useEffect, useCallback, memo, useRef } from "react";
 import { createPortal } from "react-dom";
 import C from "../../constants/colors.js";
 import useInView from "../../hooks/useInView.js";
@@ -75,9 +75,24 @@ const RoomCard = memo(function RoomCard({ room, theme }) {
   const [idx, setIdx] = useState(0);
   const [lightbox, setLightbox] = useState(false);
   const images = room.images || [room.image];
+  const touchStartX = useRef(null);
+
+  const handleTouchStart = useCallback((e) => {
+    touchStartX.current = e.touches[0].clientX;
+  }, []);
+
+  const handleTouchEnd = useCallback((e) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) setIdx(i => (i + 1) % images.length);
+      else setIdx(i => (i - 1 + images.length) % images.length);
+    }
+    touchStartX.current = null;
+  }, [images.length]);
 
   const photoBlock = (
-    <div onClick={() => setLightbox(true)} style={{ flex: "0 0 clamp(200px,42%,440px)", minHeight: "clamp(220px,40vw,320px)", position: "relative", overflow: "hidden", cursor: "pointer" }}>
+    <div onClick={() => setLightbox(true)} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} style={{ flex: "0 0 clamp(200px,42%,440px)", minHeight: "clamp(220px,40vw,320px)", position: "relative", overflow: "hidden", cursor: "pointer" }}>
       {images.map((src, i) => {
         const isActive = i === idx;
         const isAdjacent = i === (idx - 1 + images.length) % images.length || i === (idx + 1) % images.length;
