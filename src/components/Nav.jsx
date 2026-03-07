@@ -1,18 +1,7 @@
 import { useState, useEffect } from "react";
 import C from "../constants/colors.js";
-
-const links = [
-  ["Про нас", "about"],
-  ["Номери", "rooms"],
-  ["Простір", "dining"],
-  ["Зручності", "amenities"],
-  ["Галерея", "gallery"],
-  ["Відгуки", "reviews"],
-  ["Контакти", "contacts"],
-];
-
-const scrollTo = (id) =>
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+import { scrollTo } from "../utils/scroll.js";
+import { NAV_LINKS } from "../constants/navigation.js";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -36,7 +25,7 @@ export default function Nav() {
       </div>
 
       <div className="nav-links" style={{ display: "flex", gap: "clamp(10px,1.6vw,22px)", flexWrap: "wrap", justifyContent: "flex-end" }}>
-        {links.map(([label, id], i) => (
+        {NAV_LINKS.map(([label, id], i) => (
           <a key={i} href={"#" + id}
             onClick={e => { e.preventDefault(); scrollTo(id); }}
             style={{ fontSize: "9px", letterSpacing: "0.14em", color: C.muted, textTransform: "uppercase", fontFamily: "'DM Mono',monospace", textDecoration: "none", transition: "color 0.2s, border-color 0.2s", cursor: "pointer", whiteSpace: "nowrap", borderBottom: "1px solid transparent", paddingBottom: "2px" }}

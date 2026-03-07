@@ -1,4 +1,5 @@
-import { useState, useCallback, useRef, memo } from "react";
+import { useState, memo } from "react";
+import useImageSlider from "../hooks/useImageSlider.js";
 import C from "../constants/colors.js";
 import useInView from "../hooks/useInView.js";
 import NeonBorder from "./ui/NeonBorder.jsx";
@@ -39,21 +40,9 @@ const images = cells.map(c => c.img);
 
 // Mobile slider — same pattern as RoomCard
 function MobileSlider({ onOpen }) {
-  const [idx, setIdx] = useState(0);
-  const touchStartX = useRef(null);
-
-  const prev = useCallback(() => setIdx(i => (i - 1 + images.length) % images.length), []);
-  const next = useCallback(() => setIdx(i => (i + 1) % images.length), []);
-
-  const handleTouchStart = useCallback((e) => {
-    touchStartX.current = e.touches[0].clientX;
-  }, []);
-  const handleTouchEnd = useCallback((e) => {
-    if (touchStartX.current === null) return;
-    const diff = touchStartX.current - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 40) diff > 0 ? next() : prev();
-    touchStartX.current = null;
-  }, [next, prev]);
+  const { idx, setIdx, prev, next, handleTouchStart, handleTouchEnd } = useImageSlider(images.length);
+  const [prevHover, setPrevHover] = useState(false);
+  const [nextHover, setNextHover] = useState(false);
 
   return (
     <div style={{ position: "relative" }}>
@@ -85,15 +74,13 @@ function MobileSlider({ onOpen }) {
         {/* prev/next */}
         <button onClick={e => { e.stopPropagation(); prev(); }} aria-label="Попереднє фото"
           style={{ position: "absolute", left: "6px", top: "50%", transform: "translateY(-50%)", zIndex: 3, background: "none", border: "none", cursor: "pointer", padding: "10px", filter: "drop-shadow(0 2px 8px rgba(0,0,0,1)) drop-shadow(0 0 4px rgba(0,0,0,1))" }}
-          onMouseEnter={e => e.currentTarget.querySelector("path").setAttribute("stroke", C.red)}
-          onMouseLeave={e => e.currentTarget.querySelector("path").setAttribute("stroke", "white")}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          onMouseEnter={() => setPrevHover(true)} onMouseLeave={() => setPrevHover(false)}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke={prevHover ? C.red : "white"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
         </button>
         <button onClick={e => { e.stopPropagation(); next(); }} aria-label="Наступне фото"
           style={{ position: "absolute", right: "6px", top: "50%", transform: "translateY(-50%)", zIndex: 3, background: "none", border: "none", cursor: "pointer", padding: "10px", filter: "drop-shadow(0 2px 8px rgba(0,0,0,1)) drop-shadow(0 0 4px rgba(0,0,0,1))" }}
-          onMouseEnter={e => e.currentTarget.querySelector("path").setAttribute("stroke", C.red)}
-          onMouseLeave={e => e.currentTarget.querySelector("path").setAttribute("stroke", "white")}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          onMouseEnter={() => setNextHover(true)} onMouseLeave={() => setNextHover(false)}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke={nextHover ? C.red : "white"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
         </button>
       </div>
       {/* dots */}

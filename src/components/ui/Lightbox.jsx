@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
 import C from "../../constants/colors.js";
 
@@ -6,19 +6,53 @@ export default function Lightbox({ images, startIdx, name, onClose }) {
   const [idx, setIdx] = useState(startIdx);
   const prev = useCallback(() => setIdx(i => (i - 1 + images.length) % images.length), [images.length]);
   const next = useCallback(() => setIdx(i => (i + 1) % images.length), [images.length]);
+  const touchStartX = useRef(null);
+  const containerRef = useRef(null);
+  const closeRef = useRef(null);
+
+  // Lock body scroll while open
+  useEffect(() => {
+    const saved = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = saved; };
+  }, []);
+
+  // Auto-focus close button for keyboard users
+  useEffect(() => { closeRef.current?.focus(); }, []);
 
   useEffect(() => {
     const fn = (e) => {
-      if (e.key === "Escape") onClose();
-      if (e.key === "ArrowLeft") prev();
-      if (e.key === "ArrowRight") next();
+      if (e.key === "Escape") { onClose(); return; }
+      if (e.key === "ArrowLeft") { prev(); return; }
+      if (e.key === "ArrowRight") { next(); return; }
+      if (e.key === "Tab") {
+        const focusable = containerRef.current?.querySelectorAll("button");
+        if (!focusable?.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault(); last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault(); first.focus();
+        }
+      }
     };
     window.addEventListener("keydown", fn);
     return () => window.removeEventListener("keydown", fn);
   }, [onClose, prev, next]);
 
+  const handleTouchStart = useCallback((e) => {
+    touchStartX.current = e.touches[0].clientX;
+  }, []);
+  const handleTouchEnd = useCallback((e) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) diff > 0 ? next() : prev();
+    touchStartX.current = null;
+  }, [next, prev]);
+
   return createPortal(
-    <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 9999, background: "rgba(0,0,0,0.92)", display: "flex", alignItems: "center", justifyContent: "center", backdropFilter: "blur(6px)" }}>
+    <div ref={containerRef} onClick={onClose} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} style={{ position: "fixed", inset: 0, zIndex: 9999, background: "rgba(0,0,0,0.92)", display: "flex", alignItems: "center", justifyContent: "center", backdropFilter: "blur(6px)" }}>
       <div onClick={e => e.stopPropagation()} style={{ position: "relative", width: "100%", maxWidth: "90vw", maxHeight: "90vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <img src={images[idx]} alt={`${name} — фото ${idx + 1}`}
           decoding="async" style={{ maxWidth: "100%", maxHeight: "85vh", objectFit: "contain", display: "block", userSelect: "none" }} />
@@ -51,7 +85,7 @@ export default function Lightbox({ images, startIdx, name, onClose }) {
         )}
       </div>
 
-      <button onClick={onClose} aria-label="Закрити"
+      <button ref={closeRef} onClick={onClose} aria-label="Закрити"
         style={{ position: "fixed", top: "20px", right: "24px", background: "none", border: "none", width: "44px", height: "44px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", opacity: 0.6, transition: "opacity 0.2s" }}
         onMouseEnter={e => e.currentTarget.style.opacity = "1"}
         onMouseLeave={e => e.currentTarget.style.opacity = "0.6"}>

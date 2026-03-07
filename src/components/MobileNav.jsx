@@ -1,17 +1,18 @@
 import { useState, useEffect } from "react";
 import C from "../constants/colors.js";
+import { scrollTo } from "../utils/scroll.js";
 
-const INSTAGRAM = "https://www.instagram.com/red_cube_hotel/";
+const PHONE = "tel:+380985378717";
 
 const links = [
-  { label: "Номери", id: "rooms", icon: (
+  { label: "Головна", top: true, icon: (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
     </svg>
   )},
-  { label: "Простір", id: "dining", icon: (
+  { label: "Номери", id: "rooms", icon: (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/>
+      <rect x="3" y="3" width="18" height="9" rx="1"/><rect x="3" y="14" width="4" height="7" rx="1"/><rect x="9" y="14" width="4" height="7" rx="1"/>
     </svg>
   )},
   { label: "Галерея", id: "gallery", icon: (
@@ -19,28 +20,18 @@ const links = [
       <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
     </svg>
   )},
-  { label: "Відгуки", id: "reviews", icon: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
-    </svg>
-  )},
   { label: "Контакти", id: "contacts", icon: (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
     </svg>
   )},
-  { label: "Instagram", href: INSTAGRAM, icon: (
+  { label: "Дзвінок", href: PHONE, icon: (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+      <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
     </svg>
   )},
 ];
 
-const scrollTo = (id) => {
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.scrollIntoView({ behavior: "smooth" });
-};
 
 export default function MobileNav() {
   const [active, setActive] = useState(null);
@@ -125,9 +116,20 @@ export default function MobileNav() {
           WebkitTapHighlightColor: "transparent",
         };
 
-        if (link.href) {
+        if (link.top) {
           return (
-            <a key={i} href={link.href} target="_blank" rel="noreferrer" style={sharedStyle}>
+            <button key={i} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} style={sharedStyle}>
+              {content}
+            </button>
+          );
+        }
+        if (link.href) {
+          const isExternal = link.href.startsWith("http");
+          return (
+            <a key={i} href={link.href}
+              target={isExternal ? "_blank" : undefined}
+              rel={isExternal ? "noreferrer" : undefined}
+              style={sharedStyle}>
               {content}
             </a>
           );

@@ -1,30 +1,18 @@
-import { useState, useCallback, memo, useRef } from "react";
+import { useState, memo } from "react";
 import C from "../../constants/colors.js";
 import useInView from "../../hooks/useInView.js";
+import useImageSlider from "../../hooks/useImageSlider.js";
 import NeonBorder from "../ui/NeonBorder.jsx";
 import Slide from "../ui/Slide.jsx";
 import Lightbox from "../ui/Lightbox.jsx";
 
 const RoomCard = memo(function RoomCard({ room, theme }) {
   const [ref, inView] = useInView(0.2);
-  const [idx, setIdx] = useState(0);
   const [lightbox, setLightbox] = useState(false);
   const images = room.images || [room.image];
-  const touchStartX = useRef(null);
-
-  const handleTouchStart = useCallback((e) => {
-    touchStartX.current = e.touches[0].clientX;
-  }, []);
-
-  const handleTouchEnd = useCallback((e) => {
-    if (touchStartX.current === null) return;
-    const diff = touchStartX.current - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 40) {
-      if (diff > 0) setIdx(i => (i + 1) % images.length);
-      else setIdx(i => (i - 1 + images.length) % images.length);
-    }
-    touchStartX.current = null;
-  }, [images.length]);
+  const { idx, setIdx, prev, next, handleTouchStart, handleTouchEnd } = useImageSlider(images.length);
+  const [prevHover, setPrevHover] = useState(false);
+  const [nextHover, setNextHover] = useState(false);
 
   const photoBlock = (
     <div className="room-photo" onClick={() => setLightbox(true)} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} style={{ flex: "0 0 clamp(200px,42%,440px)", minHeight: "clamp(220px,40vw,320px)", position: "relative", overflow: "hidden", cursor: "pointer" }}>
@@ -53,17 +41,15 @@ const RoomCard = memo(function RoomCard({ room, theme }) {
       {/* Prev / Next arrows */}
       {images.length > 1 && (
         <>
-          <button onClick={e => { e.stopPropagation(); setIdx(i => (i - 1 + images.length) % images.length); }} aria-label="Попереднє фото"
+          <button onClick={e => { e.stopPropagation(); prev(); }} aria-label="Попереднє фото"
             style={{ position: "absolute", left: "6px", top: "50%", transform: "translateY(-50%)", zIndex: 3, background: "none", border: "none", cursor: "pointer", padding: "10px", filter: "drop-shadow(0 2px 8px rgba(0,0,0,1)) drop-shadow(0 0 4px rgba(0,0,0,1))" }}
-            onMouseEnter={e => e.currentTarget.querySelector("path").setAttribute("stroke", C.red)}
-            onMouseLeave={e => e.currentTarget.querySelector("path").setAttribute("stroke", "white")}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            onMouseEnter={() => setPrevHover(true)} onMouseLeave={() => setPrevHover(false)}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke={prevHover ? C.red : "white"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </button>
-          <button onClick={e => { e.stopPropagation(); setIdx(i => (i + 1) % images.length); }} aria-label="Наступне фото"
+          <button onClick={e => { e.stopPropagation(); next(); }} aria-label="Наступне фото"
             style={{ position: "absolute", right: "6px", top: "50%", transform: "translateY(-50%)", zIndex: 3, background: "none", border: "none", cursor: "pointer", padding: "10px", filter: "drop-shadow(0 2px 8px rgba(0,0,0,1)) drop-shadow(0 0 4px rgba(0,0,0,1))" }}
-            onMouseEnter={e => e.currentTarget.querySelector("path").setAttribute("stroke", C.red)}
-            onMouseLeave={e => e.currentTarget.querySelector("path").setAttribute("stroke", "white")}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            onMouseEnter={() => setNextHover(true)} onMouseLeave={() => setNextHover(false)}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke={nextHover ? C.red : "white"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </button>
         </>
       )}

@@ -1,23 +1,12 @@
 import C from "../constants/colors.js";
 import styles from "./Footer.module.css";
+import { scrollTo } from "../utils/scroll.js";
+import { NAV_LINKS } from "../constants/navigation.js";
 
 const PHONE_DISPLAY = "+38 098 537 87 17";
 const PHONE = "+380985378717";
 const MAPS_URL = "https://www.google.com/maps/search/Першотравнева+9Б+Кам'янець-Подільський";
 const BOOKING_URL = "https://www.booking.com/hotel/ua/red-cube-kamianets-39-podil-39-s-39-kyi1.uk.html";
-
-const scrollTo = (id) =>
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-
-const navLinks = [
-  ["Про нас", "about"],
-  ["Номери", "rooms"],
-  ["Простір", "dining"],
-  ["Зручності", "amenities"],
-  ["Галерея", "gallery"],
-  ["Відгуки", "reviews"],
-  ["Контакти", "contacts"],
-];
 
 const InstagramIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -91,7 +80,7 @@ export default function Footer() {
           <div className={styles.navBlock}>
             <div className={styles.blockTitle}>[НАВІГАЦІЯ]</div>
             <nav className={styles.navGrid}>
-              {navLinks.map(([label, id], i) => (
+              {NAV_LINKS.map(([label, id], i) => (
                 <a key={i} href={`#${id}`} onClick={e => { e.preventDefault(); scrollTo(id); }} className={styles.navLink}>
                   <span className={styles.linkMarker}></span>
                   <span className={styles.linkLabel}>{label}</span>
